@@ -1,0 +1,46 @@
+//https://www.codechef.com/COOK123B/problems/PATHSUMS
+
+import java.net.Inet4Address;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+public class Cp {
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        int t=sc.nextInt();
+        while (t-->=1){
+            int n=sc.nextInt();
+            List<Integer> AdjacencyList[]= new List[n];
+            for (int i=0;i<n;i++){
+                AdjacencyList[i]= new ArrayList<>();
+            }
+            int a[]= new int[n];
+            for (int i=0;i<n-1;i++){
+                int u=sc.nextInt();
+                int v=sc.nextInt();
+                AdjacencyList[u-1].add(v-1);
+                AdjacencyList[v-1].add(u-1);
+            }
+            ArrayDeque<Integer> deque= new ArrayDeque<>();
+            deque.add(0);
+            a[0]=1;
+            boolean isVisited[]= new boolean[n];
+            while (deque.isEmpty()==false){
+                int e=deque.poll();
+                int v=a[e]==2?1:2;
+                for (int i:AdjacencyList[e]){
+                    if (isVisited[i]==false){
+                        deque.add(i);
+                        a[i]=v;
+                    }
+                }
+                isVisited[e]=true;
+            }
+            for (int i:a){
+                System.out.print(i+" ");
+            }
+            System.out.println();
+        }
+    }
+}
